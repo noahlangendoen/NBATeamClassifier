@@ -10,8 +10,8 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image
 
 # Setting up the base directory for image resizing
-baseDir = "/content/UseableImages/"
-
+baseDir = "UseableImages/"
+os.remove("UseableImages/.DS_Store")
 # Looping through every team and image in the team's directory and resizing them
 for team in os.listdir(baseDir):
   teamDir = os.path.join(baseDir, team)
