@@ -10,7 +10,14 @@ allowedExtensions = ["image/jpg", "image/jpeg", "image/png"]
 
 def eventHandler(event, context):
     try:
-        upload = json.loads(event['body'])
+        body = event.get('body')
+        if isinstance(body, str):
+            upload = json.loads(body)
+        elif isinstance(body, dict):
+            upload = body
+        else:
+            raise Exception('Invalid event body format. JSON string or dictionary only.')
+            
         filename = upload['file_name']
         filetype = upload['file_type']
 
