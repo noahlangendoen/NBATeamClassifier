@@ -2,11 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import tensorflow as tf
 from ultralytics import YOLO
-from tensorflow.keras import datasets, layers, models
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.preprocessing import image
 from PIL import Image
 
 # Setting up the base directory for image resizing
