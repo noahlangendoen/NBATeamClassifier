@@ -1,3 +1,8 @@
+# This is a script that takes in an image and submits that image
+# via an API call to the LLaVa-7b model using the ollama package.
+# A response is returned, and then the response is checked for a
+# team prediction and the image is moved to the mapped label.
+
 import requests
 import base64
 import json
@@ -64,7 +69,7 @@ teamDict = {
 
 # Function for encoding images to base64 for the LLaVa API Calls
 def encodeImage(imageDir):
-    # Opening the image in binary mode when reading it in
+    # Opening the image in binary mode
     with open(imageDir, "rb") as image:
         return base64.b64encode(image.read()).decode("utf-8")
 
@@ -83,6 +88,9 @@ def makePrediction(imagePath):
     # Making the api call and storing the response
     response = requests.post(ollamaAPI, json=payload)
     responseText = ""
+
+    # Reponse is returned as a JSON, so we iterate through the response lines 
+    # to parse the response together until the "done" field is passed
     for chunk in response.iter_lines():
         if chunk:
             decodedChunk = json.loads(chunk.decode("utf-8"))
@@ -92,7 +100,7 @@ def makePrediction(imagePath):
 
     return responseText
 
-
+# List of every NBA team
 teams = ["76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers",
         "Grizzlies", "Hawks", "Heat", "Hornets", "Jazz", "Kings",
         "Knicks", "Lakers", "Magic", "Mavericks", "Nets",
@@ -100,6 +108,7 @@ teams = ["76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers",
         "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves",
         "Trail Blazers", "Warriors", "Wizards"]
 
+# For every team in the NBA, moved the image to the label predicted by LLaVa-7b.
 for team in teams:
     teamDir = f"D:/SeniorProject/CroppedTempImages/{team}"
     for root, _, files in os.walk(teamDir):
