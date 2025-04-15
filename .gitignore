@@ -1,3 +1,5 @@
 .DS_Store
 .venv
 yolov8n.pt
+retiredCode/
+UseableImages/
