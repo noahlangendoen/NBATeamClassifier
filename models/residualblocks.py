@@ -9,7 +9,7 @@ class ResidualBlock(nn.Module):
         self.conv1 = nn.Sequential(
             nn.Conv2d(inChannels, outChannels, kernel_size=3, stride=stride, padding=1),
             nn.BatchNorm2d(outChannels),
-            nn.ReLU()
+            nn.GELU()
         )
 
         self.conv2 = nn.Sequential(
@@ -25,11 +25,11 @@ class ResidualBlock(nn.Module):
         else:
             self.skip = nn.Identity()
 
-        self.relu = nn.ReLU()
+        self.gelu = nn.GELU()
 
     def forward(self, x):
         identity = self.skip(x)
-        out = self.relu(self.conv1(x))
+        out = self.gelu(self.conv1(x))
         out = self.conv2(out)
         out += identity
-        return self.relu(out)
+        return self.gelu(out)

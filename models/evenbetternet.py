@@ -1,4 +1,4 @@
-from residualblocks import ResidualBlock
+from models.residualblocks import ResidualBlock
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
