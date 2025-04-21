@@ -21,7 +21,8 @@ for team in teams:
     if not os.path.exists(directory + team):
         os.mkdir(directory + team)
     search = team + " players NBA"
-    downloader.download(search, limit=100, output_dir=directory + team, force_replace=False, timeout=60)
+    downloader.download(search, limit=100, output_dir=directory + team, 
+                        force_replace=False, timeout=60)
 
 # Checking to ensure only images with valid extensions are kept
 for team in teams:

@@ -81,7 +81,10 @@ def makePrediction(imagePath):
     # Creating the payload (prompt and image path) for the LLaVa API call
     payload = {
         "model": "llava",
-        "prompt": "Is there an NBA Player wearing a jersey in this image? If so, what team are they on?",
+        "prompt": (
+           "Is there an NBA Player wearing a jersey in this image?" 
+            "If so, what team are they on?"
+        ),
         "images": [encodeImage(imagePath)]
     }
 
