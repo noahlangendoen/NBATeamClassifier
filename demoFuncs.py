@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 
 def loadModel():
     model = EvenBetterNet()
-    model.load_state_dict(torch.load('EvenBetterNet.pt', map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load('best_modelReLU.pt', map_location=torch.device('cpu')))
     model.eval()
     return model
 
