@@ -35,11 +35,12 @@ class DemoGUI(QMainWindow):
     def uploadFile(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Select Image File", "", "Images (*.png *.jpg *.jpeg)")
         if file_path:
-            pixmap = QPixmap(file_path)
-            self.image_label.setPixmap(pixmap)
             self.image_label.adjustSize()
-            prediction = predictImage(file_path)
-            self.prediction_label.setText(prediction)
+            team, annotatedImg = predictImage(file_path)
+            pixmap = QPixmap(annotatedImg)
+            self.image_label.setPixmap(pixmap.scaled(300, 300, Qt.KeepAspectRatio))
+            self.prediction_label.setText(team)
+
 
 
 app = QApplication(sys.argv)
