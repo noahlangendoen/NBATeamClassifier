@@ -6,20 +6,26 @@ import torch.nn.functional as F
 class BetterNet(nn.Module):
     def __init__(self):
         super().__init__()
+        # Convolutional layers
         self.conv1 = nn.Conv2d(3, 16, 3) 
         self.conv2 = nn.Conv2d(16, 32, 3)
         self.conv3 = nn.Conv2d(32, 64, 3)
 
+        # Batch normalization layers
         self.bn1 = nn.BatchNorm2d(16)
         self.bn2 = nn.BatchNorm2d(32)
         self.bn3 = nn.BatchNorm2d(64)
 
+        # Pooling layer
         self.pool = nn.MaxPool2d(2, 2)
 
+        # Fully connected layers
         self.fc1 = nn.Linear(64 * 26 * 26, 512)
         self.fc2 = nn.Linear(512, 256)
         self.fc3 = nn.Linear(256, 30)
         self.fc4 = nn.Linear(30, 30)
+
+        # Dropout layer
         self.dropout = nn.Dropout(0.5)
 
     def forward(self, x):
