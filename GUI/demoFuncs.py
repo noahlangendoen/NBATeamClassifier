@@ -35,9 +35,17 @@ def predictImage(imgPath):
     teams = ["76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers", "Grizzlies", "Hawks", "Heat", "Hornets", "Jazz", "Kings", "Knicks", "Lakers", "Magic", "Mavericks", "Nets", "Nuggets", "Pacers", "Pelicans", "Pistons", "Raptors", "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves", "Trail Blazers", "Warriors", "Wizards"]
     # Load the models, make the predictions, and draw the bounding boxes
     model1, model2 = loadModel()
+
+    # Using YOLOv8 to detect objects in the image and getting the first result since I am passing one image
     results = model2(imgPath)[0]
+
+    # Getting the original image and converting it to RGB
     img = Image.open(imgPath).convert('RGB')
+
+    # Getting the bounding boxes from the YOLOv8 results
     boxes = results.boxes.xyxy.cpu().numpy()
+
+    # Creating the draw and font objects for drawing the output image
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("arial.ttf", size=64)
 
@@ -70,7 +78,8 @@ def predictImage(imgPath):
         textX = centerX - (width // 2)
         draw.text((textX, y1), team, fill="red", font=font)
 
-    annotatedImg = "annotated_image.jpg"
+    # Saving the annotated image to display in the GUI
+    annotatedImg = "annotatedImage.jpg"
     img.save(annotatedImg)
 
     return annotatedImg

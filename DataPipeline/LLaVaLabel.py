@@ -117,23 +117,25 @@ for team in teams:
     for root, _, files in os.walk(teamDir):
         for file in files:
             imgPath = os.path.join(root, file)
+            # Making the prediction using LLaVa-7b
             prediction = makePrediction(imgPath)
 
+            # Mapping the prediction to the team name if it exists in LLaVa's response
             mappedPrediction = teamDict.get(prediction, "unknown")
             mappedPrediction = mappedPrediction.lower()
 
+            # If the prediction is in the dictionary, map it to a singular team name for labeling
             for key in teamDict:
                 if key.lower() in prediction.lower():
                     mappedPrediction = teamDict[key]
 
+            # If a team name was found, send it to the mapped directory. Otherwise, store it in the unkown directory
             if mappedPrediction != "unknown":
                 outputDir = f"D:/SeniorProject/LLMImageLabels/{mappedPrediction}"
                 if not os.path.exists(outputDir):
                     os.makedirs(outputDir)
-                
                 os.rename(imgPath, os.path.join(outputDir, file))
             else:
                 if not os.path.exists("D:/SeniorProject/LLMImageLabels/Unkown"):
                     os.makedirs("D:/SeniorProject/LLMImageLabels/Unkown")
-
                 os.rename(imgPath, "D:/SeniorProject/LLMImageLabels/Unkown/" + file)

@@ -44,7 +44,11 @@ def cropEveryPerson(inputDir, outputDir):
 
       results = model(img)
 
+      # Since I am passing one image at a time, I need to access the first result
+      # and get the boxes in an xyxy format. I am convering the boxes to a numpy array
+      # since the tensors can become computationally expensive.
       boxes = results[0].boxes.xyxy.cpu().numpy()
+
       # If more than one person is detected, then crop all of them to individual images
       for i, box in enumerate(boxes):
         x1, y1, x2, y2 = map(int, box)

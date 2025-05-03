@@ -31,17 +31,18 @@ class DemoGUI(QMainWindow):
 
     # This function is called when the upload button is clicked, and it is responsible for calling the demoFuncs.py file
     def uploadFile(self):
-        # Only allow the user to select png, jpg, and jpeg files
+        # Only allow the user to select png, jpg, and jpeg files, ignoring the returned string of filtered file extensions
         filePath, _ = QFileDialog.getOpenFileName(self, "Select Image File", "", "Images (*.png *.jpg *.jpeg)")
         
+        # If the filepath is not empty, call the predictImage function from demoFuncs.py
+        # and display the returned annotated image in the GUI
         if filePath:
-            self.imageLabel.adjustSize()
             annotatedImg = predictImage(filePath)
             pixmap = QPixmap(annotatedImg)
             self.imageLabel.setPixmap(pixmap.scaled(800, 800, Qt.KeepAspectRatio))
 
 # Load the GUI when the file is run
-app = QApplication(sys.argv)
+app = QApplication([])
 window = DemoGUI()
 window.show()
 app.exec_()

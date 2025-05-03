@@ -12,6 +12,7 @@ model = YOLO('yolov8n.pt')
 # Load the images to ensure there will be no problems with object detection
 baseDir = "D:/SeniorProject/UseableImages"
 
+# Looping through every directory and making sure there are no problems with images after unzipping
 for team in os.listdir(baseDir):
   teamDir = os.path.join(baseDir, team)
   for image in os.listdir(teamDir):
@@ -23,6 +24,8 @@ for team in os.listdir(baseDir):
       os.remove(imageDir)
 
 
+# This function crops the images in the input directory and saves them to the output directory
+# using the YOLOv8 object detector.
 def cropImages(inputDir, outputDir):
   # Make the new output directory if it doesn't exist
   if not os.path.exists(outputDir):
@@ -41,12 +44,18 @@ def cropImages(inputDir, outputDir):
     # Implementing an object detector on every image
     for file in files:
 
+      # Opening the image
       imgPath = os.path.join(root, file)
       img = cv2.imread(imgPath)
 
+      # Sending the image to the YOLOv8 model
       results = model(img)
 
+      # Since I am passing one image at a time, I need to access the first result
+      # and get the boxes in an xyxy format. I am convering the boxes to a numpy array
+      # since the tensors can become computationally expensive.
       boxes = results[0].boxes.xyxy.cpu().numpy()
+      
       # If one person is detected, then crop to that person
       if len(boxes) == 1:
         x1, y1, x2, y2 = boxes[0]
