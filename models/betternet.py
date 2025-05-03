@@ -1,7 +1,9 @@
+# This is a fairly basic PyTorch implementation of a Convolutional Neural Network, 
+# and is the seconond model constructed.
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 
 class BetterNet(nn.Module):
     def __init__(self):

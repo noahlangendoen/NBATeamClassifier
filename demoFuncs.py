@@ -1,4 +1,5 @@
 # This file is used to load models, make predictions, and return the annotated image for display the MyGUI.py file.
+# It uses YOLOv8 to detect objects in the image, and then my model loads the pretrained waits saved earlier and makes predictions.
 
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
@@ -46,7 +47,7 @@ def predictImage(imgPath):
     # Looping through the detected boxes, making the prediction, drawing the boxes and the labels on the image
     for box in boxes:
         # Extracting the coordinates of the bounding box
-        x1, y1, x2, y2 = map(int, box[:4])
+        x1, y1, x2, y2 = map(int, box)
         croppedImg = img.crop((x1, y1, x2, y2))
         croppedTensor = preprocessImage(croppedImg)
 
@@ -63,6 +64,8 @@ def predictImage(imgPath):
         # Drawing the label and the box on the image
         bbox = draw.textbbox((0, 0), team, font=font)
         width = bbox[2] - bbox[0]
+
+        # Finding the middle of the box to put the text at the top middle
         centerX = (x1 + x2) // 2
         textX = centerX - (width // 2)
         draw.text((textX, y1), team, fill="red", font=font)

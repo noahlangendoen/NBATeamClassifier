@@ -1,3 +1,6 @@
+# This is a PyTorch implementation of a convolutional neural network model,
+# and is a very simple model. This model is the first one constructed.
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -6,9 +9,14 @@ import torch.nn.functional as F
 class Net(nn.Module):
     def __init__(self):
         super().__init__()
+        # Convolutional layers
         self.conv1 = nn.Conv2d(3, 6, 5) 
-        self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
+
+        # Pooling layer
+        self.pool = nn.MaxPool2d(2, 2)
+        
+        # Fully connected layers
         self.fc1 = nn.Linear(16 * 53 * 53, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 30)

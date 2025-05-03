@@ -1,4 +1,6 @@
-# This file is a builder class for the layers used in the EvenBetterNet model
+# This file is a builder class for the residual layers used in the EvenBetterNet model.
+# Discovered that when using nn.Sequential, we can use convolutional layers and 
+# batch normalization layers together
 
 import torch
 import torch.nn as nn
@@ -8,12 +10,13 @@ class ResidualBlock(nn.Module):
     def __init__(self, inChannels, outChannels, stride=1):
         super().__init__()
 
-        # Using nn.Sequential, we can use convolutional layers and batch normalization layers all at once
+        # First convolutional and batch norm layer
         self.conv1 = nn.Sequential(
             nn.Conv2d(inChannels, outChannels, kernel_size=3, stride=stride, padding=1),
             nn.BatchNorm2d(outChannels),
         )
-
+        
+        # Second convolutional and batch normalization layer
         self.conv2 = nn.Sequential(
             nn.Conv2d(outChannels, outChannels, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(outChannels)
@@ -26,7 +29,7 @@ class ResidualBlock(nn.Module):
                 nn.BatchNorm2d(outChannels)
             )
         else:
-        # If the input and output channels are the same, or stride is 1, skip the additional convolutional layer and just add the identity
+        # If the input and output channels are the same, or stride is 1, there is no need to change dimensions
             self.skip = nn.Identity()
 
         self.relu = nn.ReLU()

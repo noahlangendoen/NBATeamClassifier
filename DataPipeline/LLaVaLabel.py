@@ -111,7 +111,7 @@ teams = ["76ers", "Bucks", "Bulls", "Cavaliers", "Celtics", "Clippers",
         "Rockets", "Spurs", "Suns", "Thunder", "Timberwolves",
         "Trail Blazers", "Warriors", "Wizards"]
 
-# For every team in the NBA, moved the image to the label predicted by LLaVa-7b.
+# For every team in the NBA, moved the image to the label predicted by LLaVa-7b
 for team in teams:
     teamDir = f"D:/SeniorProject/CroppedTempImages/{team}"
     for root, _, files in os.walk(teamDir):
