@@ -1,5 +1,6 @@
 # This is a fairly basic PyTorch implementation of a Convolutional Neural Network, 
-# and is the seconond model constructed.
+# and is the seconond model constructed. Batch normalization was added to the model,
+# dropout was added, and added more convolutional and fully connected layers.
 
 import torch
 import torch.nn as nn

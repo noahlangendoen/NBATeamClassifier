@@ -1,6 +1,9 @@
 # This is a PyTorch implementation of a Convolutional Neural Network, 
 # and is the third model constructed. This model is more complex than previous models,
 # and imports residual blocks from the residualblocks.py file to create residual connections.
+# Each residual layer consists of three convolutional layers and batch normalization layers. 
+# This model only has two fully connected layers as the stride is able to downsample the image
+# more than previous models.
 
 from models.residualblocks import ResidualBlock
 import torch

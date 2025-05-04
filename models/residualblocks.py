@@ -1,6 +1,9 @@
 # This file is a builder class for the residual layers used in the EvenBetterNet model.
 # Discovered that when using nn.Sequential, we can use convolutional layers and 
-# batch normalization layers together
+# batch normalization layers together. This model always has at least two convolutional
+# and batch normalization layers, and when the stride is not 1, or the in/out channels are
+# not the same, an additional convolutional and batch normaalization layer is used to match
+# the dimensions for the layer to be added back to the input.
 
 import torch
 import torch.nn as nn

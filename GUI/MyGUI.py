@@ -1,4 +1,7 @@
-# This file is the GUI used for my demonstration of my trained model
+# This file is the GUI used for my demonstration of my trained model. I am using
+# the PyQt5 library to create the GUI. When the file is run, a window opens and
+# the user will see an upload image button. The image is then passed to the demoFuncs.py
+# file, where the image is sent through the models and an annotated image is returned.
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QFileDialog, QLabel
 from PyQt5.QtGui import QPixmap

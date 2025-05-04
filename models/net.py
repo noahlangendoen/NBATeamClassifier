@@ -1,10 +1,11 @@
 # This is a PyTorch implementation of a convolutional neural network model,
-# and is a very simple model. This model is the first one constructed.
+# and is a very simple model. This model is the first one constructed. It
+# consists of a few convolutional layers, a poolying layer, and a few fully
+# connected layers.
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 
 class Net(nn.Module):
     def __init__(self):
